@@ -6,7 +6,7 @@
 
 ## Install
 
-See [INSTALL.md] for full installation instructions.
+[Full installation instructions](./INSTALL.md) are also available.
 
 Install FUSE, Node.js and IPFS, and start your IPFS daemon. Then:
 
