@@ -1,0 +1,33 @@
+{
+  "name": "js-ipfs-fuse",
+  "version": "0.0.0",
+  "description": "Mount IPFS MFS as a FUSE volume using Node.js",
+  "main": "index.js",
+  "bin": {
+    "ipfs-fuse": "bin.js"
+  },
+  "scripts": {
+    "start": "node bin",
+    "test": "standard"
+  },
+  "keywords": [
+    "IPFS",
+    "MFS",
+    "FUSE",
+    "filesystem",
+    "mount"
+  ],
+  "author": "Alan Shaw",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.0",
+    "debug": "^3.1.0",
+    "explain-error": "^1.0.4",
+    "fuse-bindings": "^2.11.2",
+    "ipfs-api": "^18.1.2",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "standard": "^11.0.0"
+  }
+}
