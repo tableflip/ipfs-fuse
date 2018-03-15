@@ -1,5 +1,5 @@
 {
-  "name": "js-ipfs-fuse",
+  "name": "ipfs-fuse",
   "version": "0.1.0",
   "description": "Mount IPFS MFS as a FUSE volume using Node.js",
   "main": "index.js",
