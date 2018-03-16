@@ -10,7 +10,7 @@ const mountPath = process.platform !== 'win32'
 
 IpfsFuse.mount(mountPath, {
   ipfs: {},
-  fuse: { displayFolder: true }
+  fuse: { displayFolder: true, force: true }
 }, (err) => {
   if (err) return console.error(err.message)
   console.log('IPFS filesystem mounted on ' + mountPath)
