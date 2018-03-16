@@ -1,5 +1,7 @@
 # ipfs-fuse
 
+[![dependencies Status](https://david-dm.org/tableflip/ipfs-fuse/status.svg)](https://david-dm.org/tableflip/ipfs-fuse) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 > Mount IPFS MFS as a FUSE volume using Node.js
 
 **EXPERIMENTAL! Most things you can do, some things will explode.**
@@ -8,7 +10,7 @@
 
 [Full installation instructions](./INSTALL.md) are also available.
 
-Install FUSE, Node.js and IPFS, and start your IPFS daemon. Then:
+Install FUSE, Node.js and IPFS (the Go version), and start your IPFS daemon. Then:
 
 ```sh
 npm install -g ipfs-fuse
