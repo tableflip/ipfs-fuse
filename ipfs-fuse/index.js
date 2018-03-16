@@ -8,6 +8,7 @@ const createRead = require('./read')
 const createReaddir = require('./readdir')
 const createRename = require('./rename')
 const createRmdir = require('./rmdir')
+const createStatfs = require('./statfs')
 const createUnlink = require('./unlink')
 const createUtimens = require('./utimens')
 const createWrite = require('./write')
@@ -23,6 +24,7 @@ module.exports = (ipfs) => Object.assign(
   createReaddir(ipfs),
   createRename(ipfs),
   createRmdir(ipfs),
+  createStatfs(ipfs),
   createUnlink(ipfs),
   createUtimens(ipfs),
   createWrite(ipfs)
