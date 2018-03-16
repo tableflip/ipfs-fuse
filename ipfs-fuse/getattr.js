@@ -1,6 +1,6 @@
 const Fuse = require('fuse-bindings')
 const explain = require('explain-error')
-const debug = require('debug')('js-ipfs-fuse:getattr')
+const debug = require('debug')('ipfs-fuse:getattr')
 
 module.exports = (ipfs) => {
   const now = Date.now()

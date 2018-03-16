@@ -1,5 +1,5 @@
 const Fuse = require('fuse-bindings')
-const debug = require('debug')('js-ipfs-fuse:index')
+const debug = require('debug')('ipfs-fuse:index')
 const IpfsApi = require('ipfs-api')
 const mkdirp = require('mkdirp')
 const Async = require('async')

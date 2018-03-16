@@ -1,6 +1,6 @@
 const Fuse = require('fuse-bindings')
 const explain = require('explain-error')
-const debug = require('debug')('js-ipfs-fuse:read')
+const debug = require('debug')('ipfs-fuse:read')
 
 module.exports = (ipfs) => {
   return {

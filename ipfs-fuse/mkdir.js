@@ -4,16 +4,16 @@ const debug = require('debug')('ipfs-fuse:readdir')
 
 module.exports = (ipfs) => {
   return {
-    readdir (path, reply) {
-      debug({ path })
+    mkdir (path, mode, reply) {
+      debug({ path, mode })
 
-      ipfs.files.ls(path, (err, files) => {
+      ipfs.files.mkdir(path, (err) => {
         if (err) {
-          err = explain(err, 'Failed to ls path')
+          err = explain(err, 'Failed to create directory')
           debug(err)
           return reply(Fuse.EREMOTEIO)
         }
-        reply(0, files.map(f => f.name || f.hash))
+        reply(0)
       })
     }
   }
