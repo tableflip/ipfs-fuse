@@ -4,6 +4,7 @@ const createOpen = require('./open')
 const createRead = require('./read')
 const createReaddir = require('./readdir')
 const createRename = require('./rename')
+const createRmdir = require('./rmdir')
 
 module.exports = (ipfs) => Object.assign(
   createGetattr(ipfs),
@@ -11,5 +12,6 @@ module.exports = (ipfs) => Object.assign(
   createOpen(ipfs),
   createRead(ipfs),
   createReaddir(ipfs),
-  createRename(ipfs)
+  createRename(ipfs),
+  createRmdir(ipfs)
 )
