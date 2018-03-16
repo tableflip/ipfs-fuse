@@ -2,7 +2,7 @@
 
 > Mount IPFS MFS as a FUSE volume using Node.js
 
-**EXPERIMENTAL! Currently you can only view, open, rename and move files and folders.**
+**EXPERIMENTAL! Most things you can do, some things will explode.**
 
 ## Install
 
