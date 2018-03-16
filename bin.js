@@ -13,12 +13,18 @@ IpfsFuse.mount(mountPath, {
   fuse: { displayFolder: true, force: true }
 }, (err) => {
   if (err) return console.error(err.message)
-  console.log('IPFS filesystem mounted on ' + mountPath)
+  console.log(`Mounted IPFS filesystem on ${mountPath}`)
 })
 
+let destroyed = false
+
 process.on('SIGINT', () => {
+  if (destroyed) return
+
+  destroyed = true
+
   IpfsFuse.unmount(mountPath, (err) => {
     if (err) return console.error(err.message)
-    console.log(`IPFS filesystem at ${mountPath} unmounted`)
+    console.log(`Unmounted IPFS filesystem at ${mountPath}`)
   })
 })
