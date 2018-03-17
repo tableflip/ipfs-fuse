@@ -6,6 +6,8 @@
 
 **EXPERIMENTAL! Most things you can do, some things will explode.**
 
+Demo: https://youtu.be/jXkTEBdM6aA
+
 ## Install
 
 [Full installation instructions](./INSTALL.md) are also available.
