@@ -10,11 +10,7 @@ sudo apt-get install fuse
 
 **macOS**
 
-Download and install from https://osxfuse.github.io/ or:
-
-```sh
-brew install fuse
-```
+Download and install from https://osxfuse.github.io/
 
 ## Node.js
 
@@ -22,13 +18,28 @@ Install Node.js from https://nodejs.org/.
 
 ## IPFS
 
-Install and run the `go-ipfs` daemon from https://ipfs.io/. I know, I know, but until `js-ipfs` gets MFS this project is not useable with it.
+OPTIONAL! You do not need to install IPFS at all because `ipfs-fuse` comes bundled with a JS IPFS that will run by default.
+
+`ipfs-fuse` also works with both `go-ipfs` and `js-ipfs` daemons:
+
+### JS
+
+Install and run the `js-ipfs` daemon:
+
+```sh
+npm install ipfs
+jsipfs daemon
+```
+
+Note: to connect to a JS daemon, you must pass the API multiaddr to `ipfs-fuse` when starting. e.g. `--api-addr=/ip4/127.0.0.1/tcp/5002`
+
+### Go
+
+Install and run the `go-ipfs` daemon by downloading from https://ipfs.io/.
 
 ```sh
 ipfs daemon
 ```
-
-Note, currently your daemon API needs to be running on the default port.
 
 ## IPFS FUSE
 

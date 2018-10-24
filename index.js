@@ -1,6 +1,5 @@
 const Fuse = require('fuse-bindings')
 const debug = require('debug')('ipfs-fuse:index')
-const IpfsApi = require('ipfs-api')
 const mkdirp = require('mkdirp')
 const Async = require('async')
 const explain = require('explain-error')
@@ -28,9 +27,27 @@ exports.mount = (mountPath, opts, cb) => {
       })
     },
     ipfs (cb) {
-      const ipfs = new IpfsApi(opts.ipfs)
+      if (opts.daemon) return cb(null, require('ipfs-api')(opts.ipfs))
 
-      ipfs.id((err, id) => {
+      const Ipfs = require('ipfs')
+      const ipfs = new Ipfs(opts.ipfs)
+
+      const onReady = () => {
+        ipfs.removeListener('ready', onReady)
+        ipfs.removeListener('error', onError)
+        cb(null, ipfs)
+      }
+
+      const onError = err => {
+        ipfs.removeListener('ready', onReady)
+        ipfs.removeListener('error', onError)
+        cb(err)
+      }
+
+      ipfs.on('ready', onReady).on('error', onError)
+    },
+    connected: ['ipfs', (res, cb) => {
+      res.ipfs.id((err, id) => {
         if (err) {
           err = explain(err, 'Failed to connect to IPFS node')
           debug(err)
@@ -38,10 +55,10 @@ exports.mount = (mountPath, opts, cb) => {
         }
 
         debug(id)
-        cb(null, ipfs)
+        cb()
       })
-    },
-    mount: ['path', 'ipfs', (res, cb) => {
+    }],
+    mount: ['path', 'ipfs', 'connected', (res, cb) => {
       Fuse.mount(mountPath, createIpfsFuse(res.ipfs), opts.fuse, (err) => {
         if (err) {
           err = explain(err, 'Failed to mount IPFS FUSE volume')
@@ -49,27 +66,45 @@ exports.mount = (mountPath, opts, cb) => {
           return cb(err)
         }
 
-        cb(null, {})
+        cb()
       })
     }]
-  }, (err) => {
+  }, (err, res) => {
     if (err) {
       debug(err)
       return cb(err)
     }
-    cb(null, {})
-  })
-}
 
-exports.unmount = (mountPath, cb) => {
-  cb = cb || (() => {})
+    cb(null, {
+      unmount (cb) {
+        cb = cb || (() => {})
 
-  Fuse.unmount(mountPath, (err) => {
-    if (err) {
-      err = explain(err, 'Failed to unmount IPFS FUSE volume')
-      debug(err)
-      return cb(err)
-    }
-    cb()
+        Async.parallel([
+          cb => {
+            Fuse.unmount(mountPath, err => {
+              if (err) {
+                err = explain(err, 'Failed to unmount IPFS FUSE volume')
+                debug(err)
+                return cb(err)
+              }
+              cb()
+            })
+          },
+          cb => {
+            // Do not stop a daemon...
+            if (opts.daemon) return cb()
+
+            res.ipfs.stop(err => {
+              if (err) {
+                err = explain(err, 'Failed to stop IPFS node')
+                debug(err)
+                return cb(err)
+              }
+              cb()
+            })
+          }
+        ], cb)
+      }
+    })
   })
 }
