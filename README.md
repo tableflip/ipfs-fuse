@@ -26,8 +26,28 @@ npm_config_python=/usr/local/opt/python2/bin/python2 npm i -g ipfs-fuse
 
 ## Usage
 
-Mount IPFS MFS on `~/IPFS` or `I://` (windows).
+Mount JS IPFS MFS on `~/IPFS` or `I://` (windows).
 
 ```sh
 ipfs-fuse
 ```
+
+### Connect to running daemon
+
+```sh
+ipfs-fuse --daemon
+```
+
+You can also specify the multiaddr your daemon is running on for if you're connecting to a JS IPFS daemon for example:
+
+```sh
+ipfs-fuse --daemon --api-addr=/ip4/127.0.0.1/tcp/5002
+```
+
+## Contribute
+
+Feel free to dive in! [Open an issue](https://github.com/alanshaw/ipfs-fuse/issues/new) or submit PRs.
+
+## License
+
+[MIT](LICENSE) © Alan Shaw
