@@ -2,7 +2,7 @@ const Fuse = require('fuse-bindings')
 const explain = require('explain-error')
 const debug = require('debug')('ipfs-fuse:statfs')
 
-module.exports = (ipfs) => {
+module.exports = (ipfs, id) => {
   return {
     statfs (path, reply) {
       debug({ path })
@@ -16,7 +16,7 @@ module.exports = (ipfs) => {
 
         // FIXME: cannot repo.stat on JS IPFS it reads the whole repo into memory
         // to count the blocks 😱 and takes 5s each time
-        if (ipfs._libp2pNode) {
+        if (id.agentVersion.includes('js-ipfs')) {
           // TODO: I have no idea what I'm doing.
           // https://github.com/mafintosh/fuse-bindings#opsstatfspath-cb
           // https://github.com/mafintosh/fuse-bindings/blob/032ed16e234f7379fbf421c12afef592ab2a292d/fuse-bindings.cc#L771-L783

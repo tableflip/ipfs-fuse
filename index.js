@@ -46,7 +46,7 @@ exports.mount = (mountPath, opts, cb) => {
 
       ipfs.on('ready', onReady).on('error', onError)
     },
-    connected: ['ipfs', (res, cb) => {
+    id: ['ipfs', (res, cb) => {
       res.ipfs.id((err, id) => {
         if (err) {
           err = explain(err, 'Failed to connect to IPFS node')
@@ -55,11 +55,11 @@ exports.mount = (mountPath, opts, cb) => {
         }
 
         debug(id)
-        cb()
+        cb(null, id)
       })
     }],
-    mount: ['path', 'ipfs', 'connected', (res, cb) => {
-      Fuse.mount(mountPath, createIpfsFuse(res.ipfs), opts.fuse, (err) => {
+    mount: ['path', 'ipfs', 'id', (res, cb) => {
+      Fuse.mount(mountPath, createIpfsFuse(res.ipfs, res.id), opts.fuse, (err) => {
         if (err) {
           err = explain(err, 'Failed to mount IPFS FUSE volume')
           debug(err)

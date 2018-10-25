@@ -7,7 +7,8 @@ module.exports = (ipfs) => {
     write (path, fd, buf, len, pos, reply) {
       debug({ path })
 
-      ipfs.files.write(path, buf, { offset: pos, count: len }, (err) => {
+      // FIXME: count and length because https://github.com/ipfs/js-ipfs-mfs/issues/21
+      ipfs.files.write(path, buf, { offset: pos, count: len, length: len }, (err) => {
         if (err) {
           err = explain(err, 'Failed to write to file')
           debug(err)
