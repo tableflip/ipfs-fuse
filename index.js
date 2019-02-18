@@ -1,6 +1,6 @@
 const Fuse = require('fuse-bindings')
 const debug = require('debug')('ipfs-fuse:index')
-const IpfsApi = require('ipfs-api')
+const IpfsApi = require('ipfs-http-client')
 const mkdirp = require('mkdirp')
 const Async = require('async')
 const explain = require('explain-error')
@@ -17,6 +17,11 @@ exports.mount = (mountPath, opts, cb) => {
 
   Async.auto({
     path (cb) {
+      if (process.platform === 'win32') {
+        cb()
+        return
+      }
+
       mkdirp(mountPath, (err) => {
         if (err) {
           err = explain(err, 'Failed to create mount point')
