@@ -1,4 +1,4 @@
-const Fuse = require('fuse-bindings')
+const Fuse = require('fuse-native')
 const debug = require('debug')('ipfs-fuse:index')
 const IpfsApi = require('ipfs-http-client')
 const mkdirp = require('mkdirp')
@@ -47,7 +47,7 @@ exports.mount = (mountPath, opts, cb) => {
       })
     },
     mount: ['path', 'ipfs', (res, cb) => {
-      Fuse.mount(mountPath, createIpfsFuse(res.ipfs), opts.fuse, (err) => {
+      const fuse = new Fuse(mountPath, createIpfsFuse(res.ipfs), opts.fuse).mount((err) => {
         if (err) {
           err = explain(err, 'Failed to mount IPFS FUSE volume')
           debug(err)

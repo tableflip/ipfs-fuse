@@ -1,4 +1,4 @@
-const Fuse = require('fuse-bindings')
+const Fuse = require('fuse-native')
 const explain = require('explain-error')
 const debug = require('debug')('ipfs-fuse:rmdir')
 
