@@ -1,4 +1,4 @@
-// const Fuse = require('fuse-bindings')
+// const Fuse = require('fuse-native')
 const debug = require('debug')('ipfs-fuse:open')
 
 module.exports = (ipfs, fds) => {

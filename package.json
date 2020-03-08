@@ -23,7 +23,7 @@
     "async": "^2.6.2",
     "debug": "^4.1.1",
     "explain-error": "^1.0.4",
-    "fuse-bindings": "^2.11.2",
+    "fuse-native": "^2.2.1",
     "ipfs-http-client": "^29.1.1",
     "mkdirp": "^0.5.1"
   },
